@@ -1,0 +1,46 @@
+class Patient:
+    def __init__(self):
+        self.patients=[]
+        
+    def input_patients(self):
+        num_patients=int(input("Enter the number of patients: "))
+        for i in range(num_patients):
+            patient ={}
+            patient["name"]=input("Enter patient name: ")
+            patient["age"]=int(input("Enter patient age: "))
+            patient["gender"]=input("Enter patient gender: ")
+            patient["contact_no"]=int(input("Enter patient contact number: "))
+            patient["symptoms"]=input("Enter patient symptoms: ").capitalize()
+            self.patients.append(patient)
+    def getpatientnames(self):
+        return self.patients
+    
+class Doctor:
+    def __init__(self):
+        self.doctors=[]
+
+    def input_doctors(self):
+        num_doctors=int(input("Enter the number of doctors: "))
+        for i in range(num_doctors):
+            doctor ={}
+            doctor["name"]=input("Enter doctor name: ")
+            doctor["specialization"]=input("Enter doctor specialization: ").capitalize()
+            self.doctors.append(doctor)
+    
+    def getdoctornames(self):
+        return self.doctors
+    
+class Hospital(Patient, Doctor):
+    def __init__(self):
+        Patient.__init__(self)
+        Doctor.__init__(self)
+        self.schedule_appointment = {}
+
+    def add_patient(self):
+        for doctor in self.doctors:
+            self.schedule_appointment[doctor["name"]] = []
+            for patient in self.patients:
+                if doctor["specialization"] == patient["symptoms"]:
+                    self.schedule_appointment[doctor["name"]].append(patient["name"])
+
+        print("Scheduled Appointments:", self.schedule_appointment)
